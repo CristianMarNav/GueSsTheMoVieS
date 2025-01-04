@@ -26,6 +26,7 @@ class Game {
         this.peliculas = new ArrayList<>();
         this.ranking = new ArrayList<>();
         cargarPeliculas();
+        cargarRanking();
     }
 
     /**
@@ -59,6 +60,21 @@ class Game {
             System.out.println("No se encontró el archivo de ranking. Se creará uno nuevo");
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Error al cargar el ranking: " + e.getMessage());
+        }
+    }
+
+    private void guardarRanking() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(archivoRanking))) {
+            oos.writeObject(ranking);
+        } catch (IOException e) {
+            System.err.println("Error al guardar el ranking: " + e.getMessage());
+        }
+    }
+
+    public void iniciar() {
+        if (peliculas.isEmpty()) {
+            System.err.println("No hay películas disponibles para jugar.");
+            return;
         }
     }
 }
