@@ -28,7 +28,8 @@ class Game {
         File archivo = new File(archivosPeliculas);
         if (!archivo.exists()) {
 
-            System.out.println("El archov de películas no existe: " + archivosPeliculas);
+            System.out.println("El archivo de películas no existe: " + archivosPeliculas);
+            System.exit(1);
         }
         try (Scanner scanner = new Scanner(archivo)) {
             while (scanner.hasNextLine()) {
