@@ -10,6 +10,10 @@ class Game {
     private List<String> peliculas;
     private List<Player> ranking;
 
+    private static final int PUNTOS_POR_LETRA = 10;
+    private static final int PUNTOS_POR_PALABRA = 20;
+    private static final int MAX_RANKING = 5;
+
     /**
      * Contructor de la clase Game.
      *
