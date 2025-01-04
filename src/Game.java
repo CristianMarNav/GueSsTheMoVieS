@@ -106,7 +106,7 @@ class Game {
                     System.out.println("🧠Introduce una letra:");
                     String entrada = scanner.nextLine().toLowerCase();
                     if (entrada.length() != 1 || !Character.isLetter(entrada.charAt(0))) {
-                        System.out.println("❌ Entrada inválida. Introduce una letra válida.❌");
+                        System.out.println("❌ Entrada inválida. Introduce una letra válida. ❌");
                         continue;
                     }
                     char letra = entrada.charAt(0);
@@ -126,9 +126,32 @@ class Game {
                         puntuacion -= PUNTOS_POR_LETRA;
                         intentos--;
                     }
+                    break;
+
+                case "2":
+                    System.out.println("🤔Introduce el título: ");
+                    String intentoTitulo = scanner.nextLine().toLowerCase();
+                    if (intentoTitulo.equals(peliculaSeleccionada)) {
+                        puntuacion += PUNTOS_POR_PALABRA;
+                        System.out.println("🎉¡Has ganado! El título era: " + peliculaSeleccionada + "🎉");
+                        return;
+                    } else {
+                        puntuacion -= PUNTOS_POR_PALABRA;
+                        System.out.println("👎 Respuesta incorrecta. Has perdido.");
+                        return;
+                    }
+
+                case  "3":
+                    System.out.println("Saliendo del juego");
+                    return;
+
+                default:
+                    System.out.println("❌ Opción inválida. Intenta de nuevo. ❌");
+
+                }
             }
         }
     }
-}
+
 
 
