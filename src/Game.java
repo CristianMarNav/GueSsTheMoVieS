@@ -94,6 +94,41 @@ class Game {
         Set<Character> letrasAdivinadas = new HashSet<>();
         Set<Character> letrasErroneas = new HashSet<>();
 
+        while (intentos > 0 && peliculaOculta.indexOf("*") != -1) {
+            System.out.println("Título: " + peliculaOculta);
+            System.out.println("Intentos restantes: " + intentos);
+            System.out.println("Letras incorrectas: " + letrasErroneas);
+            System.out.println("1. Adivinar una letra\n2. Adivinar el título\n3. Salir");
+            String opcion = scanner.nextLine();
+
+            switch (opcion) {
+                case "1":
+                    System.out.println("🧠Introduce una letra:");
+                    String entrada = scanner.nextLine().toLowerCase();
+                    if (entrada.length() != 1 || !Character.isLetter(entrada.charAt(0))) {
+                        System.out.println("❌ Entrada inválida. Introduce una letra válida.❌");
+                        continue;
+                    }
+                    char letra = entrada.charAt(0);
+                    if (letrasAdivinadas.contains(letra) || letrasErroneas.contains(letra)) {
+                        System.out.println("🫷 Ya has intentado esa letra.");
+                        continue;
+                    }
+                    if (peliculaSeleccionada.indexOf(letra) != -1) {
+                        letrasAdivinadas.add(letra);
+                        for (int i = 0; i < peliculaSeleccionada.length(); i++) {
+                            if (peliculaSeleccionada.charAt(i) == letra) {
+                                peliculaOculta.setCharAt(i, letra);
+                            }
+                        }
+                    } else {
+                        letrasErroneas.add(letra);
+                        puntuacion -= PUNTOS_POR_LETRA;
+                        intentos--;
+                    }
+            }
+        }
     }
 }
+
 
