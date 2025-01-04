@@ -76,6 +76,24 @@ class Game {
             System.err.println("No hay películas disponibles para jugar.");
             return;
         }
+
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+        String peliculaSeleccionada = peliculas.get(random.nextInt(peliculas.size()));
+        StringBuilder peliculaOculta = new StringBuilder();
+        for (char c : peliculaSeleccionada.toCharArray()) {
+            if (Character.isLetter(c)) {
+                peliculaOculta.append('*');
+            } else {
+                peliculaOculta.append(c);
+            }
+        }
+
+        int intentos = 10;
+        int puntuacion = 0;
+        Set<Character> letrasAdivinadas = new HashSet<>();
+        Set<Character> letrasErroneas = new HashSet<>();
+
     }
 }
 
