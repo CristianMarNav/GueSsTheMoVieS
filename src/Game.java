@@ -1,5 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -7,7 +6,9 @@ import java.util.*;
  */
 class Game {
     private final String archivosPeliculas;
+    private final String archivoRanking;
     private List<String> peliculas;
+    private List<Player> ranking;
 
     /**
      * Contructor de la clase Game.
@@ -15,9 +16,11 @@ class Game {
      * @param archivoPeliculas "Ruta del archivo con la lista de películas".
      */
 
-    public Game(String archivoPeliculas) {
+    public Game(String archivoPeliculas, String archivoRanking) {
         this.archivosPeliculas = archivoPeliculas;
+        this.archivoRanking = archivoRanking;
         this.peliculas = new ArrayList<>();
+        this.ranking = new ArrayList<>();
         cargarPeliculas();
     }
 
@@ -38,6 +41,20 @@ class Game {
         } catch (FileNotFoundException e) {
 
             System.out.println("Error al abrir el archivo de películas: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Método que carga el ranking desde el archivo binario.
+     * Si el archivo no existe, incializa un nuevo ranking vacío.
+     */
+    private void cargarRanking() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivoRanking))) {
+            ranking = (List<Player>) ois.readObject();
+        } catch (FileNotFoundException e) {
+            System.out.println("No se encontró el archivo de ranking. Se creará uno nuevo");
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error al cargar el ranking: " + e.getMessage());
         }
     }
 }
